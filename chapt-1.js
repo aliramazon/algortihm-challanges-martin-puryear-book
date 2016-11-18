@@ -114,7 +114,7 @@ function addSeventoMost(arr) {
 
 function reverseArrInPlace(arr) {
     // var size = arr.length / 2;
-    var size = Math.floor(arr.length/2)
+    var size = arr.length/2 -1
 
     for(var i = 0; i < size; i ++){
         var temp = arr[i];

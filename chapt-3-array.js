@@ -1,3 +1,5 @@
+//This Chapter focuses on Arrays
+
 // Insert At
 
 function insertAt(arr, pos, val) {

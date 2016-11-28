@@ -353,3 +353,181 @@ function dropTheMike(phrase) {
     }
     return newPhrase.join(" ");
 }
+
+
+// Coin Change with Array
+
+function generateChange(cents) {
+    var counter = { "one" : 0, "q" : 0, "d" : 0, "n" : 0, "p" : 0 };
+
+    while (cents >= 100) {
+        cents -= 100;
+        counter["one"] += 1;
+    }
+    while (cents >= 25) {
+        cents -= 25;
+        counter["q"] += 1;
+    }
+    while (cents >= 10) {
+        cents -= 10;
+        counter["d"] += 1;
+    }
+    while (cents >= 5) {
+        cents -= 5;
+        counter["n"] += 1;
+    }
+    while (cents >= 1) {
+        cents -= 1;
+        counter["p"] += 1;
+    }
+    return counter;
+}
+
+// Max, Min, Average with Object;
+
+function minMaxAverage(numbers) {
+    var obj = {"min" : numbers[0], "max" : numbers[0]};
+    var sum = 0;
+    var counter = 0;
+    for(var i = 0; i < numbers.length; i ++){
+        var num = numbers[i];
+
+        if(obj["min"] > num){
+            obj["min"] = num;
+        }
+
+        if(obj["max"] < num){
+            obj["max"] = num;
+        }
+        sum += num;
+        counter += 1;
+    }
+    obj["average"] = sum/counter;
+
+    return obj;
+
+}
+
+// Zip Arrays into Map
+
+function mapify(arr, arr1) {
+    var zipped = {};
+
+    for(var i = 0; i < arr.length; i ++){
+        var ele = arr[i];
+        zipped[ele] = arr1[i];
+    }
+    return zipped;
+}
+
+
+// Invert Hash
+
+function invertHash(obj) {
+    var inverted = {};
+
+    for(var key in obj){
+        inverted[obj[key]] = key;
+    }
+    return inverted;
+}
+
+
+// Number of Values
+
+function objValueCount(obj) {
+    counter = 0;
+
+    for(var key in obj){
+        counter += 1;
+    }
+    return counter;
+}
+
+
+//String.concat;
+//We do not know the quantity of the string we should concat.
+// So we can use built-in *arguments to iterate through unknown quantity.
+
+function stringConcat() {
+    var newStr = "";
+    for(var i = 0; i < arguments.length; i ++){
+        newStr += arguments[i];
+    }
+    return newStr;
+}
+
+
+// String slice
+
+function stringSlice(str,start,end) {
+    if (end === undefined) {
+        end = str.length;
+    }
+    var slicedStr = "";
+
+    for(var i = start; i < end; i ++ ){
+        slicedStr += str[i];
+    }
+
+    return slicedStr;
+}
+
+
+//String Trim
+
+function stringTrim(str) {
+    var trimmedStr = [];
+    var words = str.split(" ");
+
+    for(var i = 0; i < words.length; i ++){
+        var char = words[i];
+        if(char !== "" && char !== "\n" && char !== "\t"){
+            trimmedStr.push(words[i]);
+        }
+    }
+    return trimmedStr.join(" ");
+}
+
+
+//String split without limit Property;
+
+function stringSplit(str, seperator) {
+    var splitStr = [];
+    var splitHolder = "";
+
+    for(var i = 0; i < str.length; i ++){
+        if(seperator === ""){
+            splitStr.push(str[i]);
+        }
+        else {
+            if(str[i] === seperator){
+                splitStr.push(splitHolder);
+                splitHolder = "";
+            }
+            else {
+                if(i !== str.length-1){
+                    splitHolder += str[i];
+                }
+                else {
+                    splitHolder += str[i];
+                    splitStr.push(splitHolder);
+                }
+            }
+        }
+    }
+
+    return splitStr;
+}
+
+
+// String Seartch
+
+function stringSearch(str, val) {
+    for(var i = 0; i < str.length; i ++){
+        if(str[i] === val){
+            return i;
+        }
+    }
+    return -1;
+}

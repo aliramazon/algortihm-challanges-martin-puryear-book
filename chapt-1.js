@@ -1,184 +1,195 @@
 // biggieSize
-function biggieSize(arr) {
+const biggieSize = (arr) => {
     for (let i = 0; i < arr.length; i++) {
         if (arr[i] > 0) {
             arr[i] = "big";
         }
     }
     return arr;
-}
+};
 
 // printLow Return highest
 
-function printLowReturnHigh(arr) {
-    var min = arr[0];
-    var max = arr[0];
+const printLowReturnHigh = (arr) => {
+    let min = arr[0];
+    let max = arr[0];
 
-    for (var i = 0; i < arr.length; i++) {
-        if (min > arr[i]) {
-            min = arr[i];
+    for (let ele of arr) {
+        if (min > ele) {
+            min = ele;
         }
 
-        if (max < arr[i]) {
-            max = arr[i];
+        if (max < ele) {
+            max = ele;
         }
     }
     console.log(min);
     return max;
-}
+};
 
-// printOneReturnAnother
-function firstOdd(numbers) {
-    for (var i = 0; i < number.length; i++) {
-        if (number[i] % 2 !== 0) {
-            return numbers[i];
+// first odd number
+const firstOdd = (numbers) => {
+    for (let num of numbers) {
+        if (num % 2 !== 0) {
+            return num;
         }
     }
     return "No odd found";
-}
+};
 
 //Double Vision
 
-function doubleArr(numbers) {
-    var doubled = [];
+const doubleArr = (numbers) => {
+    return numbers.map((num) => num * 2);
+};
 
-    for (var i = 0; i < numbers.length; i++) {
-        doubled.push(numbers[i] * 2);
-    }
-    return doubled;
-}
+// countPositives
 
-// CountPositives
-
-function CountPositives(arr) {
+const countPositives = (nums) => {
     count = 0;
 
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] > 0) {
-            count++;
-        }
+    for (let num of nums) {
+        if (num > 0) count++;
     }
-    arr[arr.length - 1] = count;
-    return arr;
-}
+    return count;
+};
+
+const countPositives1 = (nums) => {
+    return nums.reduce((acc, num) => {
+        return num > 0 ? acc + 1 : acc;
+    }, 0);
+};
 
 // Evens and Odds
 
-function evensAndOdds(arr) {
-    for (var i = 0; i < arr.length - 2; i++) {
-        var first = arr[i],
-            second = arr[i + 1],
-            third = arr[i + 2];
-        if (first % 2 !== 0 && (second % 2 !== 0) & (third % 2 !== 0)) {
-            console.log("That's odd!");
+const evenAndOdds = (nums) => {
+    let i = 0;
+
+    while (i < nums.length - 2) {
+        let first = nums[i],
+            second = nums[i + 1],
+            third = nums[i + 2];
+        if (first % 2 !== 0 && second % 2 !== 0 && third % 2 !== 0) {
+            console.log([first, second, third], "Odds");
+            i += 3;
+            continue;
         } else if (first % 2 === 0 && second % 2 === 0 && third % 2 === 0) {
-            console.log("Even more so!");
+            console.log([first, second, third], "Evens");
+            i += 3;
+            continue;
         }
+        i++;
     }
-}
+};
 
 // Increment the seconds
-function incrementSeconds(arr) {
-    for (var i = 1; i < arr.length; i += 2) {
+
+const incrementSeconds = (arr) => {
+    for (let i = 1; i < arr.length; i += 2) {
         arr[i] += 1;
     }
     return arr;
-}
+};
 
-//Previous lengts
+//Previous length
 
-function previousLength(words) {
-    var prev = words[0];
-    for (var i = 1; i < words.length; i++) {
-        var temp = words[i];
+const previousLength = (words) => {
+    let prev = words[0];
+    for (let i = 1; i < words.length; i++) {
+        let temp = words[i];
         words[i] = prev.length;
         prev = temp;
     }
     return words;
-}
+};
 // Add seven to Most
 
-function addSeventoMost(arr) {
+const addSeventoMost = (arr) => {
     var plusSeven = [];
 
-    for (var i = 1; i < arr.length; i++) {
+    for (let i = 1; i < arr.length; i++) {
         plusSeven.push(arr[i] + 7);
     }
     return plusSeven;
-}
+};
 
 // Reverse array in place
 
-function reverseArrInPlace(arr) {
-    // var size = arr.length / 2;
-    var size = arr.length / 2 - 1;
+const reverseArrInPlace = (arr) => {
+    let mid = arr.length / 2;
 
-    for (var i = 0; i < size; i++) {
-        var temp = arr[i];
-        arr[i] = arr[arr.length - 1 - i];
-        arr[arr.length - 1 - i] = temp;
+    for (let i = 0; i < mid; i++) {
+        [arr[i], arr[arr.length - 1 - i]] = [arr[arr.length - 1 - i], arr[i]];
     }
     return arr;
-}
+};
 
 // Negativate array
 
-function negativate(numbers) {
-    var allNegatives = [];
+const negativate = (numbers) => {
+    let allNegatives = [];
 
-    for (var i = 0; i < numbers.length; i++) {
-        if (numbers[i] > 0) {
-            negative = numbers[i] - 2 * numbers[i];
+    for (let num of numbers) {
+        if (num > 0) {
+            let negative = num - 2 * num;
             allNegatives.push(negative);
         } else {
-            allNegatives.push(numbers[i]);
+            allNegatives.push(num);
         }
     }
     return allNegatives;
-}
+};
 
 // Hungry elements
 
-function hungryArray(foods) {
-    for (var i = 0; i < foods.length; i++) {
-        if (foods[i] === "food") {
-            return true;
+const hungryArray = (foods) => {
+    let found = false;
+    for (let food of foods) {
+        if (food === "food") {
+            found = true;
+            console.log("yummy");
         }
     }
-    return false;
-}
+    if (!found) {
+        return "I'm hungry";
+    }
+};
 
 // Swap toward the Center
 
-function swapTowardCenter(arr) {
-    var temp1 = arr[0];
-    var temp2 = arr[2];
+const swapTowardCenter = (arr) => {
+    [arr[0], arr[arr.length - 1]] = [arr[arr.length - 1], arr[0]];
+    [arr[2], arr[arr.length - 3]] = [arr[arr.length - 3], arr[2]];
+
+    /* Old way
+    let temp1 = arr[0];
+    let temp2 = arr[2];
 
     arr[0] = arr[arr.length - 1];
     arr[arr.length - 1] = temp1;
 
     arr[2] = arr[arr.length - 3];
-    arr[arr.length - 3] = temp2;
+    arr[arr.length - 3] = temp2; */
 
     return arr;
-}
+};
 
 //Scale the array
 
-function scaleArray(arr, num) {
-    for (var i = 0; i < arr.length; i++) {
+const scaleArray = (arr, num) => {
+    for (let i = 0; i < arr.length; i++) {
         arr[i] = arr[i] * num;
     }
 
     return arr;
-}
+};
 
 // keep the last n
 
-function keepTheLastN(arr, n) {
-    var slice_idx = arr.length - n;
-    return arr.slice(slice_idx);
-}
+const keepTheLastN = (arr, n) => {
+    let sliceIdx = arr.length - n;
+    return arr.slice(sliceIdx);
+};
 
 // Soaring IQ
 
@@ -190,20 +201,43 @@ function soaringIQ(startIQ) {
     return sumIQ + startIQ;
 }
 
+// Math Help
+
+const findX = (M, B) => {
+    // Y = MX + B; Y = 0. Given M and B, find X.
+    let X = -B / M;
+    return X;
+};
+
+// Soaring IQ
+
+const getFinalIQ = (startIQ) => {
+    // Everyday it increments by 0.01 points. Total days 98. So on the 98th it will incrememt by 0.98.
+    // There is formula n * (n + 1) / 2. it works only for n >=1
+    // To get benefit from this formula, we initially multiply 0.01, 0.02, ...0.98 by 100.
+
+    let gainedIQ = (98 * 99) / 2 / 100;
+    return gainedIQ + startIQ;
+};
+
 // Letter Grade
 
-function letterGrade(num) {
-    var info = "Score: " + num + ". Grade: ";
-    if (num >= 88 || (num >= 78 && num <= 79) || (num >= 68 && num <= 69)) {
-        var sign = "+";
+const letterGrade = (num) => {
+    let sign = "";
+    let info = "Score: " + num + ". Grade: ";
+    if (
+        num >= 99 ||
+        (num >= 88 && num <= 89) ||
+        (num >= 78 && num <= 79) ||
+        (num >= 68 && num <= 69)
+    ) {
+        sign = "+";
     } else if (
-        num <= 81 ||
+        (num <= 81 && num >= 80) ||
         (num <= 71 && num >= 70) ||
         (num <= 61 && num >= 60)
     ) {
-        var sign = "-";
-    } else {
-        var sign = "";
+        sign = "-";
     }
     if (num >= 90) {
         console.log(info + "A" + sign);
@@ -216,4 +250,4 @@ function letterGrade(num) {
     } else {
         console.log("Retake your exam");
     }
-}
+};

@@ -166,3 +166,25 @@ const extractDigit = (num, digitNum) => {
 
     return Math.floor(num * nthDigit) % 10;
 };
+
+// Most significant digit. Leftmost non-zero digit
+
+const mostSignificantDigit = (number) => {
+    number = Math.abs(number);
+
+    if (number > 1) {
+        while (number >= 10) {
+            number = number / 10;
+        }
+    } else {
+        while (number < 1) {
+            number *= 10;
+        }
+    }
+    return Math.floor(number);
+};
+
+console.log(mostSignificantDigit(9945568));
+console.log(mostSignificantDigit(10));
+console.log(mostSignificantDigit(0.00000042345568));
+console.log(mostSignificantDigit(67.89));

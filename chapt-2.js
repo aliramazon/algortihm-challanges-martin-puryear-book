@@ -184,7 +184,80 @@ const mostSignificantDigit = (number) => {
     return Math.floor(number);
 };
 
-console.log(mostSignificantDigit(9945568));
-console.log(mostSignificantDigit(10));
-console.log(mostSignificantDigit(0.00000042345568));
-console.log(mostSignificantDigit(67.89));
+// Gaming Fundamentals
+const rollOne = () => {
+    return Math.ceil(Math.random() * 6);
+};
+
+const playFives = (num) => {
+    for (let i = 0; i < num; i++) {
+        let result = rollOne();
+        console.log(result);
+        if (result === 5) {
+            console.log("That is good luck");
+        }
+    }
+};
+
+const playStatistics = (num) => {
+    let min = null;
+    let max = null;
+    let sum = 0;
+    for (let i = 0; i < num; i++) {
+        let result = rollOne();
+        sum += result;
+        if (min === null) {
+            min = result;
+        }
+        if (max === null) {
+            max = result;
+        }
+
+        if (min > result) min = result;
+        if (max < result) max = result;
+    }
+
+    return {
+        min,
+        max,
+        sum,
+        average: sum / num
+    };
+};
+
+// Statistics Untill Doubles
+
+const rollOne20 = () => {
+    return Math.ceil(Math.random() * 20);
+};
+
+const statisticsUntilDoubles = () => {
+    let current = rollOne20();
+    let next = rollOne20();
+    let rolls = 2;
+    let sum = current + next;
+    let min = current;
+    let max = next;
+
+    while (current !== next) {
+        let result = rollOne20();
+        rolls++;
+        sum += result;
+        if (min > result) min = result;
+        if (max < result) max = result;
+        current = next;
+        next = result;
+    }
+
+    return {
+        min,
+        max,
+        rolls,
+        sum,
+        average: sum / rolls,
+        current,
+        next
+    };
+};
+
+console.log(statisticsUntilDoubles());

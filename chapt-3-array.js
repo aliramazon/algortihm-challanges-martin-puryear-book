@@ -45,8 +45,7 @@ const swapPairs = (arr) => {
 };
 
 // Remove Duplicates;
-
-function removeDuplicates(arr) {
+const removeDuplicates = (arr) => {
     let hash = {};
     let uniques = [];
 
@@ -57,34 +56,29 @@ function removeDuplicates(arr) {
         }
     }
     return uniques;
-}
+};
 
-//===== Min to Front======//
-function minToFront(arr) {
-    var minPos = getMinPos(arr);
-
-    for (var i = minPos; i > 0; i--) {
-        var temp = arr[i];
-        arr[i] = arr[i - 1];
-        arr[i - 1] = temp;
-    }
-    return arr;
-}
-//it returns min value's position and use it in minToFront();
-function getMinPos(arr) {
-    var pos = 0;
-    var min = arr[0];
-    for (var i = 0; i < arr.length; i++) {
-        if (min > arr[i]) {
-            min = arr[i];
-            pos = i;
+// Get position of min element of array
+const getMinPos = (arr) => {
+    let minPos = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[minPos] > arr[i]) {
+            minPos = i;
         }
     }
-    return pos;
-}
+    return minPos;
+};
+
+// Move min value to front
+const minToFront = (arr) => {
+    let minPos = getMinPos(arr);
+    for (let i = minPos; i > 0; i--) {
+        [arr[i], arr[i - 1]] = [arr[i - 1], arr[i]];
+    }
+    return arr;
+};
 
 // Reverse Array in-place
-
 function reverseArr(arr) {
     var halfSize = arr.length / 2;
     var temp;

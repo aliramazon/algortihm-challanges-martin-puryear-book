@@ -79,28 +79,44 @@ const minToFront = (arr) => {
 };
 
 // Reverse Array in-place
-function reverseArr(arr) {
-    var halfSize = arr.length / 2;
-    var temp;
+const reverseArr = (arr) => {
+    let mid = Math.floor(arr.length / 2);
 
-    for (var i = 0; i < halfSize - 1; i++) {
-        temp = arr[i];
-        arr[i] = arr[arr.length - 1 - i];
-        arr[arr.length - 1 - i] = temp;
+    for (let i = 0; i < mid; i++) {
+        [arr[i], arr[arr.length - 1 - i]] = [arr[arr.length - 1 - i], arr[i]];
     }
     return arr;
-}
+};
 
 // Rotate Array
+const rotateArrInPlace = (arr, shiftBy) => {
+    let hash = {},
+        newIndex;
 
-function rotateArr(arr, shiftBy) {
-    var rotated = [];
-    for (var i = 0; i < arr.length; i++) {
-        var newEle = arr[(i + shiftBy + 1) % arr.length];
-        rotated.push(newEle);
+    for (let i = 0; i < arr.length; i++) {
+        newIndex = (i + shiftBy) % arr.length;
+        hash[newIndex] = arr[newIndex];
+
+        if (hash[i] || hash[i] === 0) {
+            arr[newIndex] = hash[i];
+        } else {
+            arr[newIndex] = arr[i];
+        }
+    }
+
+    return arr;
+};
+
+const rotateArr = (arr, shiftBy) => {
+    let rotated = [];
+    let newIndex;
+
+    for (let i = 0; i < arr.length; i++) {
+        newIndex = (i + shiftBy) % arr.length;
+        rotated[newIndex] = arr[i];
     }
     return rotated;
-}
+};
 
 // arrConcat
 

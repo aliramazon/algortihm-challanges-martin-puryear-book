@@ -118,114 +118,84 @@ const rotateArr = (arr, shiftBy) => {
     return rotated;
 };
 
-// arrConcat
+// Concat two arrays;
+const concatTwoArrays = (arr1, arr2) => {
+    let concatedArr = [];
 
-function arrConcat(arr, arr1) {
-    var concatedArr = [];
-
-    for (var i = 0; i < arr.length; i++) {
-        concatedArr.push(arr[i]);
+    for (let ele of arr1) {
+        concatedArr.push(ele);
     }
 
-    for (var i = 0; i < arr1.length; i++) {
-        concatedArr.push(arr1[i]);
+    for (let ele of arr2) {
+        concatedArr.push(ele);
     }
     return concatedArr;
-}
+};
 
 // Filter Range // Remove Range;
-function filterRange(arr, min, max) {
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] > min && arr[i] < max) {
-            arr = removeAt(arr, i); // removeAt functin is the helper function which you can find in line # 42
-            i -= 1;
+const filterRange = (arr, min, max) => {
+    let i = 0;
+    let ele;
+
+    while (i < arr.length) {
+        ele = arr[i];
+        if (ele < min || ele > max) {
+            removeAt(arr, i);
+        } else {
+            i++;
         }
     }
     return arr;
-}
+};
 
 // Remove Negatives
 function removeNegtives(arr) {
-    for (var i = 0; i < arr.length; i++) {
-        if (arr[i] < 0) {
-            arr = removeAt(arr, i); // removeAt functin is the helper function which you can find in line # 42
-            i -= 1;
+    let i = 0;
+    let ele;
+
+    while (i < arr.length) {
+        ele = arr[i];
+        if (ele < 0) {
+            removeAt(arr, i);
+        } else {
+            i++;
         }
     }
     return arr;
 }
 
 // Second to Last
-
-function secondToLast(arr) {
+const secondToLast = (arr) => {
     if (arr.length < 2) {
         return null;
-    } else {
-        return arr[arr.length - 2];
     }
-}
-
-// NthLargest;
-
-function NthLargest(arr, n) {
-    if (arr.length < n) {
-        return null;
-    }
-    var temp;
-    for (var i = 0; i < arr.length; i++) {
-        for (var j = i + 1; j < arr.length; j++) {
-            temp = arr[i];
-            if (arr[i] > arr[j]) {
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
-    }
-    return arr[arr.length - n];
-}
+    return arr[arr.length - 2];
+};
 
 // nth to Last;
-
-function NthToLast(arr, n) {
+const nthToLast = (arr, n) => {
     if (n > arr.length) {
         return null;
     }
     return arr[arr.length - n];
-}
+};
 
-// isCreditCardValid?
+// isValidCreditCardNumber
+const isValidCreditCardNumber = (nums) => {
+    let sum = nums[nums.length - 1];
+    let product;
 
-function isCreditCardValid(digits) {
-    var sum = 0;
-
-    if (isCardDigitsValid(digits)) {
-        var lastDigit = digits.pop();
-        for (var i = digits.length - 1; i >= 0; i--) {
-            if (i % 2 !== 0) {
-                digits[i] = digits[i] * 2;
-                if (digits[i] > 9) {
-                    digits[i] -= 9;
-                }
-            }
-            sum += digits[i];
-        }
-    } else {
-        return false;
-    }
-    return (sum + lastDigit) % 10 === 0;
-}
-
-// Helper function: It checks if any digits of card more than 9? If so, it ruturns false right away. If not, true;
-function isCardDigitsValid(digits) {
-    for (var i = 0; i < digits.length; i++) {
-        if (digits[i] > 9) {
-            return false;
+    for (let i = nums.length - 2; i >= 0; i--) {
+        if (i % 2 !== 0) {
+            product = nums[i] * 2;
+            if (product > 9) product -= 9;
+            sum += product;
+        } else {
+            sum += nums[i];
         }
     }
-    return true;
-}
-
-function shuffle(array) {}
+    return sum % 10 === 0;
+};
 
 // Shuffle Array;
 function shuffle(array) {

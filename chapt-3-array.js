@@ -198,16 +198,18 @@ const isValidCreditCardNumber = (nums) => {
 };
 
 // Shuffle Array;
-function shuffle(array) {
-    var randomIndex, temp;
-    for (var i = 0; i < array.length; i++) {
-        randomIndex = Math.floor(Math.random() * i);
-        temp = array[i];
-        array[i] = array[randomIndex];
-        array[randomIndex] = temp;
+const shuffleArray = (array) => {
+    let randomIndex;
+
+    for (let i = 0; i < array.length; i++) {
+        randomIndex = Math.floor(Math.random() * array.length);
+        [array[i], array[randomIndex]] = [array[randomIndex], array[i]];
     }
     return array;
-}
+};
+
+console.log(shuffleArray([1, 2, 3, 4, 5]));
+console.log(shuffleArray([1, 2, 3, 4, 5]));
 
 // Intermediate Sums
 

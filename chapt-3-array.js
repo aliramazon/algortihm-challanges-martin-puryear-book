@@ -208,85 +208,73 @@ const shuffleArray = (array) => {
     return array;
 };
 
-console.log(shuffleArray([1, 2, 3, 4, 5]));
-console.log(shuffleArray([1, 2, 3, 4, 5]));
-
 // Intermediate Sums
+const intermediateSums = (arr, nth) => {
+    let sum = 0;
+    let nthCounter = 0;
+    let i = 0;
 
-function intermediateSums(array, n) {
-    var sum = 0;
-    var idxCouter = 0;
+    while (i < arr.length) {
+        sum += arr[i];
+        nthCounter += 1;
 
-    for (var i = 0; i < array.length; i++) {
-        idxCouter += 1;
-        if (idxCouter % n !== 0 && i !== array.length - 1) {
-            sum += array[i];
-        } else {
-            sum += array[i];
-            array = insertAt(array, i + 1, sum); //insertAt function could be found on the top of the page
+        if (nthCounter % nth === 0 || i === arr.length - 1) {
+            insertAt(arr, i + 1, sum);
             sum = 0;
-            idxCouter = 0;
+            i += 2;
+        } else {
             i += 1;
         }
     }
-    return array;
-}
+
+    return arr;
+};
 
 // Double Trouble
-function twinifyElements(arr) {
-    for (var i = 0; i < arr.length; i++) {
-        arr = insertAt(arr, i + 1, arr[i]); // //insertAt function could be found on the top of the page
-        i += 1;
+const doubleTrouble = (arr) => {
+    let i = 0;
+
+    while (i < arr.length) {
+        insertAt(arr, i, arr[i]);
+        i += 2;
     }
+
     return arr;
-}
+};
 
 // Zip it, by creating a new array;
+const zipIt = (arr1, arr2) => {
+    let zippedArr = [];
+    let i = 0,
+        j = 0;
 
-function zipIt(arr, arr1) {
-    var limit = arr.length;
-    if (arr.length >= arr1.length) {
-        limit = arr1.length;
-    }
-
-    var zipped = [];
-    for (var i = 0; i < limit; i++) {
-        zipped.push(arr[i], arr1[i]);
-    }
-
-    var size = zipped.length / 2;
-
-    if (size === arr.length && size === arr1.length) {
-        return zipped;
-    } else if (size === arr.length) {
-        for (var i = size; i < arr1.length; i++) {
-            zipped.push(arr1[i]);
-        }
-    } else {
-        for (var i = size; i < arr.length; i++) {
-            zipped.push(arr[i]);
+    while (zippedArr.length < arr1.length + arr2.length) {
+        if (i < arr1.length && j < arr2.length) {
+            zippedArr.push(arr1[i], arr2[j]);
+            i++;
+            j++;
+        } else if (i < arr1.length && j >= arr2.length) {
+            zippedArr.push(arr1[i]);
+            i++;
+        } else {
+            zippedArr.push(arr2[j]);
+            j++;
         }
     }
-    return zipped;
-}
+    return zippedArr;
+};
 
-//f Zip it by mutating first array
-
-function zipIt1(arr, arr1) {
-    var limit = arr.length;
-    if (arr.length > arr1.length) {
-        limit = arr1.length;
-    }
-    var inserIdx = 1;
-    for (var i = 0; i < limit; i++) {
-        arr = insertAt(arr, inserIdx, arr1[i]);
-        inserIdx += 2;
-    }
-
-    if (limit === arr.length / 2) {
-        for (var i = limit; i < arr1.length; i++) {
-            arr.push(arr1[i]);
+// Zip it by mutating first array
+const zipItInplace = (arr1, arr2) => {
+    let pos = arr1.length === 0 ? -1 : 0;
+    for (let i = 0; i < arr2.length; i++) {
+        insertAt(arr1, pos + 1, arr2[i]);
+        if (pos + 1 === arr1.length - 1) {
+            pos += 1;
+        } else {
+            pos += 2;
         }
     }
-    return arr;
-}
+
+    return arr1;
+};

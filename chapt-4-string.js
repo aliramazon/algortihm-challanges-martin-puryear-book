@@ -1,99 +1,76 @@
-function removeAt(words, pos) {
-    if (pos > words.length-1) {
+const removeAt = (words, pos) => {
+    if (pos > words.length - 1) {
         return "Not Valid Position";
     }
-    var temp;
-    for(var i = pos; i < words.length-1; i ++){
-        temp = words[i];
-        words[i] = words[i + 1];
-        words[i + 1] = temp;
+    for (let i = pos; i < words.length - 1; i++) {
+        [words[i], words[i + 1]] = [words[i + 1], words[i]];
     }
     words.pop();
     return words;
-}
+};
 
 // Remove Blanks
-function removeBlanks(str) {
+const removeBlanks = (str) => {
     return str.split(" ").join("");
-}
+};
 
 //  Get Digits
+const getDigits = (str) => {
+    let digits = [];
 
-function getDigits(str) {
-    var digits = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-    var numberfy = "";
-
-    for(var i = 0; i < str.length; i ++){
-        if(digits.indexOf(parseInt(str[i])) !== -1){
-            numberfy += str[i];
+    for (let char of str) {
+        if (Number.isInteger(parseInt(char))) {
+            digits.push(char);
         }
     }
-    return parseInt(numberfy); // parseInt() takes str-interger as argument and converts to Integer
-}
-
+    return parseInt(digits.join(""));
+};
 
 // Acronyms
+const acronyms = (str) => {
+    let words = str.split(" ");
+    let capitals = [];
 
-function firstLettersOnly(str) {
-    var words = str.split(" ");
-    var capitals = "";
-
-    for(var i = 0; i < words.length; i ++){
-        if(words[i] !== ""){
-            capitals += words[i][0].toUpperCase();
+    for (let word of words) {
+        if (word !== "") {
+            capitals.push(word[0].toUpperCase());
         }
     }
-    return capitals;
-}
+    return capitals.join("");
+};
 
-// countNonSpaces
+// Count non-spaces
+const countNonSpaces = (str) => {
+    let counter = 0;
 
-function countNonSpaces(str) {
-    var words = str.split(" ");
-    return words.join("").length;
-}
-
-
-// Remove Shorters
-
-function removeShorters(words, size) {
-    for(var i = 0; i < words.length; i ++){
-        if(words[i].length < size){
-            removeAt(words, i); // Helper function on the top of page;
-        }
-        i-= 1;
+    for (let char of str) {
+        if (char !== " ") counter++;
     }
-    return words;
-}
 
+    return counter;
+};
 
+// Remove shorter strings
+const removeShorterStrings = (words, limit) => {
+    return words.filter((word) => word.length >= limit);
+};
 
-// Reverse String in Place
-function reverseStr(string) {
-    string = string.split("");
-    var size = Math.floor(string.length/2);
-    var temp;
-    for(var i = 0; i < size; i ++){
-        temp = string[i];
-        string[i] = string[string.length - 1 - i];
-        string[string.length - 1 - i] = temp;
+// Reverse string
+const reverseString = (str) => {
+    let chars = str.split("");
+    let length = chars.length;
+
+    for (let i = 0; i < Math.floor(str.length / 2); i++) {
+        [chars[i], chars[length - 1 - i]] = [[chars[length - 1 - i]], chars[i]];
     }
-    return string.join("");
-}
 
+    return chars.join("");
+};
 
 // Remove Even-length strings
-
-function removerEvenLengths(words) {
-    for(var i = 0; i < words.length; i ++){
-        if(words[i].length % 2 === 0){
-            removeAt(words, i);
-            i -= 1;
-        }
-    }
-    return words;
-}
-
+const removerEvenLengthStrings = (words) => {
+    return words.filter((word) => word.length % 2 !== 0);
+};
 
 // Integers to Roman Numerals//
 
@@ -101,11 +78,31 @@ function removerEvenLengths(words) {
 //http://www.rapidtables.com/convert/number/roman-numerals-converter.htm. However, they both represent same number.
 function romanify(number) {
     var romanNum = "";
-    var romans = ["M", "IM", "CM", "D", "XD", "CD", "C", "IC", "XC", "L", "IL" , "XL", "X", "IX", "V", "IV", "I"];
-    var numbers = [1000, 999, 900, 500,490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1];
+    var romans = [
+        "M",
+        "IM",
+        "CM",
+        "D",
+        "XD",
+        "CD",
+        "C",
+        "IC",
+        "XC",
+        "L",
+        "IL",
+        "XL",
+        "X",
+        "IX",
+        "V",
+        "IV",
+        "I"
+    ];
+    var numbers = [
+        1000, 999, 900, 500, 490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1
+    ];
 
-    for(var i = 0; i < numbers.length; i ++){
-        while(number >= numbers[i]){
+    for (var i = 0; i < numbers.length; i++) {
+        while (number >= numbers[i]) {
             number -= numbers[i];
             romanNum += romans[i];
         }
@@ -116,18 +113,37 @@ function romanify(number) {
 //Romans to Integers
 function numberfy(romanStr) {
     var number = 0;
-    var romans = ["M", "IM", "CM", "D", "XD", "CD", "C", "IC", "XC", "L", "IL" , "XL", "X", "IX", "V", "IV", "I"];
-    var numbers = [1000, 999, 900, 500,490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1];
-    for(var i = 0; i < romanStr.length; i ++){
+    var romans = [
+        "M",
+        "IM",
+        "CM",
+        "D",
+        "XD",
+        "CD",
+        "C",
+        "IC",
+        "XC",
+        "L",
+        "IL",
+        "XL",
+        "X",
+        "IX",
+        "V",
+        "IV",
+        "I"
+    ];
+    var numbers = [
+        1000, 999, 900, 500, 490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1
+    ];
+    for (var i = 0; i < romanStr.length; i++) {
         var singleLetterPos = romans.indexOf(romanStr[i]);
-        var twoLetterRoman = romanStr.slice(i, i +2); // Like XL, IX, CD
+        var twoLetterRoman = romanStr.slice(i, i + 2); // Like XL, IX, CD
         var twoLetterPos = romans.indexOf(twoLetterRoman); // It  gets the positions of them;
-        if(singleLetterPos !== -1){
-            if(twoLetterPos !== -1){
+        if (singleLetterPos !== -1) {
+            if (twoLetterPos !== -1) {
                 number += numbers[twoLetterPos];
                 i += 1;
-            }
-            else {
+            } else {
                 number += numbers[singleLetterPos];
             }
         }
@@ -135,46 +151,41 @@ function numberfy(romanStr) {
     return number;
 }
 
-
 // is Parenthesis valid
 function isValidParentheses(str) {
     var stack = [];
-    for(var i = 0; i < str.length; i ++){
+    for (var i = 0; i < str.length; i++) {
         var chr = str[i];
 
-        if(chr === "("){
+        if (chr === "(") {
             stack.push(chr);
-        }
-        else if (chr === ")") {
+        } else if (chr === ")") {
             var lastOpen = stack.pop();
-            if(lastOpen === undefined) return false;
+            if (lastOpen === undefined) return false;
         }
     }
     return stack.length === 0;
 }
-
 
 // isValidBraces?
 
 function isValidBraces(str) {
     var stack = [];
-    var pairs = {"(" : ")", "[" : "]", "{" : "}"};
+    var pairs = { "(": ")", "[": "]", "{": "}" };
     var closed = [")", "]", "}"];
 
-    for(var i = 0; i < str.length; i ++){
+    for (var i = 0; i < str.length; i++) {
         var chr = str[i];
 
-        if(pairs[chr]){
+        if (pairs[chr]) {
             stack.push(chr);
-        }
-        else if (closed.indexOf(chr) !== -1) {
+        } else if (closed.indexOf(chr) !== -1) {
             var lastOpen = stack.pop();
-            if(pairs[lastOpen] !== chr) return false;
+            if (pairs[lastOpen] !== chr) return false;
         }
     }
     return stack.length === 0;
 }
-
 
 // is Palindrome? /Strict version
 
@@ -196,9 +207,9 @@ function isSoftPalindrome(str) {
     var cleanStr = "";
     var reversedStr = "";
 
-    for(var i = 0; i < str.length; i ++){
+    for (var i = 0; i < str.length; i++) {
         var chr = str[i];
-        if(puncts.indexOf(chr) === -1){
+        if (puncts.indexOf(chr) === -1) {
             reversedStr = chr + reversedStr;
             cleanStr += chr;
         }
@@ -213,16 +224,16 @@ function isVowelsOrdered(str) {
     var vowels = "aeiou";
     var vowelsPos = [];
 
-    for(var i = 0; i < str.length; i ++){
+    for (var i = 0; i < str.length; i++) {
         var pos = vowels.indexOf(str[i]);
 
-        if(pos !== -1){
+        if (pos !== -1) {
             vowelsPos.push(pos);
         }
     }
     // return vowelsPos === vowelsPos.sort(); This could do the job between 223-228.
-    for(var i = 0; i < vowelsPos.length-1; i ++){
-        if(vowelsPos[i] > vowelsPos[i+1]){
+    for (var i = 0; i < vowelsPos.length - 1; i++) {
+        if (vowelsPos[i] > vowelsPos[i + 1]) {
             return false;
         }
     }
@@ -235,8 +246,8 @@ function isLettersOrdered(str) {
     var abc = "abcdefghijklmnopqrstuvwxyz";
     str = str.toLowerCase();
 
-    for(var i = 0; i < str.length-1; i ++){
-        if(abc.indexOf(str[i]) > abc.indexOf(str[i+1])){
+    for (var i = 0; i < str.length - 1; i++) {
+        if (abc.indexOf(str[i]) > abc.indexOf(str[i + 1])) {
             return false;
         }
     }
@@ -249,7 +260,9 @@ function wierdGreeting(str) {
     var veryFirstLetter = str[0];
     var firstLetterRemoved = str.split(str[0]).join("");
     var firstLetter = firstLetterRemoved[0];
-    firstLetterRemoved = firstLetterRemoved.split(firstLetter).join(firstLetter.toUpperCase());
+    firstLetterRemoved = firstLetterRemoved
+        .split(firstLetter)
+        .join(firstLetter.toUpperCase());
 
     return firstLetterRemoved + " to the " + veryFirstLetter;
 }
@@ -263,22 +276,20 @@ function wierdGreeting(str) {
 function getCommonSuffix(words) {
     var longestWord = getShortestWord(words);
     var commonSuffix = null;
-    for(var i = longestWord.length-1; i >= 0; i --){
+    for (var i = longestWord.length - 1; i >= 0; i--) {
         var suffix = longestWord.slice(i);
-        if(isLastSuffixSame(words, suffix)){
+        if (isLastSuffixSame(words, suffix)) {
             commonSuffix = suffix;
-        }
-        else {
+        } else {
             return commonSuffix;
         }
     }
     return commonSuffix;
 }
 function isLastSuffixSame(words, suffix) {
-
-    for(var i = 0; i < words.length; i ++){
+    for (var i = 0; i < words.length; i++) {
         var chars = words[i].split(suffix);
-        if(words[i].length === 0 || chars[chars.length-1] !== ''){
+        if (words[i].length === 0 || chars[chars.length - 1] !== "") {
             return false;
         }
     }
@@ -288,77 +299,72 @@ function isLastSuffixSame(words, suffix) {
 function getShortestWord(words) {
     var shortest = words[0];
 
-    for(var i = 0; i < words.length; i ++){
-        if(shortest.length > words[i].length){
+    for (var i = 0; i < words.length; i++) {
+        if (shortest.length > words[i].length) {
             shortest = words[i];
         }
     }
     return shortest;
 }
 
-
 // Book Index
 
 function bookIndex(pages) {
-     var indexes = [];
+    var indexes = [];
 
-     for(var i = 0; i < pages.length; i ++){
-         var endIdx = getEndIdx(pages, i);
-         if(i === endIdx){
-             var range = pages[endIdx];
-         }
-         else {
-             var range = pages[i] + "-" + pages[endIdx];
-         }
-         indexes.push(range);
-         i = endIdx;
-
-     }
-     return indexes.join(",");
+    for (var i = 0; i < pages.length; i++) {
+        var endIdx = getEndIdx(pages, i);
+        if (i === endIdx) {
+            var range = pages[endIdx];
+        } else {
+            var range = pages[i] + "-" + pages[endIdx];
+        }
+        indexes.push(range);
+        i = endIdx;
+    }
+    return indexes.join(",");
 }
 
 function getEndIdx(pages, startIdx) {
     var startEle = pages[startIdx];
     var endIdx = startIdx;
 
-    for(var i = startIdx; i < pages.length; i ++){
-        if(startEle === pages[i +1] - 1){
+    for (var i = startIdx; i < pages.length; i++) {
+        if (startEle === pages[i + 1] - 1) {
             endIdx = i + 1;
             startEle = pages[endIdx];
-        }
-        else {
+        } else {
             return endIdx;
         }
     }
     return endIdx;
 }
 
-
 // Drop the Mike
 
 function dropTheMike(phrase) {
     phrase = phrase.split(" ");
-    if(phrase.indexOf("Mike") !== -1){
+    if (phrase.indexOf("Mike") !== -1) {
         return "stunned silence";
     }
     var newPhrase = [];
 
-    for(var i = 0; i < phrase.length; i ++){
+    for (var i = 0; i < phrase.length; i++) {
         var word = phrase[i];
 
-        if(word !== ""){
-            var capitalizedWord = word.slice(0, 1).toUpperCase() + word.slice(1);
+        if (word !== "") {
+            var capitalizedWord =
+                word.slice(0, 1).toUpperCase() + word.slice(1);
             newPhrase.push(capitalizedWord);
         }
     }
     return newPhrase.join(" ");
 }
 
-
 // Coin Change with Array
 
 function generateChange(cents) {
-    var counter = { "one" : 0, "q" : 0, "d" : 0, "n" : 0, "p" : 0 };
+    var counter = { one: 0, q: 0, d: 0, n: 0, p: 0 };
 
     while (cents >= 100) {
         cents -= 100;
@@ -386,26 +392,25 @@ function generateChange(cents) {
 // Max, Min, Average with Object;
 
 function minMaxAverage(numbers) {
-    var obj = {"min" : numbers[0], "max" : numbers[0]};
+    var obj = { min: numbers[0], max: numbers[0] };
     var sum = 0;
     var counter = 0;
-    for(var i = 0; i < numbers.length; i ++){
+    for (var i = 0; i < numbers.length; i++) {
         var num = numbers[i];
 
-        if(obj["min"] > num){
+        if (obj["min"] > num) {
             obj["min"] = num;
         }
 
-        if(obj["max"] < num){
+        if (obj["max"] < num) {
             obj["max"] = num;
         }
         sum += num;
         counter += 1;
     }
-    obj["average"] = sum/counter;
+    obj["average"] = sum / counter;
 
     return obj;
-
 }
 
 // Zip Arrays into Map
@@ -413,37 +418,34 @@ function minMaxAverage(numbers) {
 function mapify(arr, arr1) {
     var zipped = {};
 
-    for(var i = 0; i < arr.length; i ++){
+    for (var i = 0; i < arr.length; i++) {
         var ele = arr[i];
         zipped[ele] = arr1[i];
     }
     return zipped;
 }
 
-
 // Invert Hash
 
 function invertHash(obj) {
     var inverted = {};
 
-    for(var key in obj){
+    for (var key in obj) {
         inverted[obj[key]] = key;
     }
     return inverted;
 }
-
 
 // Number of Values
 
 function objValueCount(obj) {
     counter = 0;
 
-    for(var key in obj){
+    for (var key in obj) {
         counter += 1;
     }
     return counter;
 }
-
 
 //String.concat;
 //We do not know the quantity of the string we should concat.
@@ -451,28 +453,26 @@ function objValueCount(obj) {
 
 function stringConcat() {
     var newStr = "";
-    for(var i = 0; i < arguments.length; i ++){
+    for (var i = 0; i < arguments.length; i++) {
         newStr += arguments[i];
     }
     return newStr;
 }
 
-
 // String slice
 
-function stringSlice(str,start,end) {
+function stringSlice(str, start, end) {
     if (end === undefined) {
         end = str.length;
     }
     var slicedStr = "";
 
-    for(var i = start; i < end; i ++ ){
+    for (var i = start; i < end; i++) {
         slicedStr += str[i];
     }
 
     return slicedStr;
 }
-
 
 //String Trim
 
@@ -480,15 +480,14 @@ function stringTrim(str) {
     var trimmedStr = [];
     var words = str.split(" ");
 
-    for(var i = 0; i < words.length; i ++){
+    for (var i = 0; i < words.length; i++) {
         var char = words[i];
-        if(char !== "" && char !== "\n" && char !== "\t"){
+        if (char !== "" && char !== "\n" && char !== "\t") {
             trimmedStr.push(words[i]);
         }
     }
     return trimmedStr.join(" ");
 }
-
 
 //String split without limit Property;
 
@@ -496,20 +495,17 @@ function stringSplit(str, seperator) {
     var splitStr = [];
     var splitHolder = "";
 
-    for(var i = 0; i < str.length; i ++){
-        if(seperator === ""){
+    for (var i = 0; i < str.length; i++) {
+        if (seperator === "") {
             splitStr.push(str[i]);
-        }
-        else {
-            if(str[i] === seperator){
+        } else {
+            if (str[i] === seperator) {
                 splitStr.push(splitHolder);
                 splitHolder = "";
-            }
-            else {
-                if(i !== str.length-1){
+            } else {
+                if (i !== str.length - 1) {
                     splitHolder += str[i];
-                }
-                else {
+                } else {
                     splitHolder += str[i];
                     splitStr.push(splitHolder);
                 }
@@ -520,12 +516,11 @@ function stringSplit(str, seperator) {
     return splitStr;
 }
 
-
 // String Seartch
 
 function stringSearch(str, val) {
-    for(var i = 0; i < str.length; i ++){
-        if(str[i] === val){
+    for (var i = 0; i < str.length; i++) {
+        if (str[i] === val) {
             return i;
         }
     }

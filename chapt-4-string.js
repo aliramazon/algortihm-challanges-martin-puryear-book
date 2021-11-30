@@ -72,24 +72,17 @@ const removerEvenLengthStrings = (words) => {
     return words.filter((word) => word.length % 2 !== 0);
 };
 
-// Integers to Roman Numerals//
-
-//This challenge is confusing. You must specify 349 as CCCIL, but as real It must be CCCXLIX according to
-//http://www.rapidtables.com/convert/number/roman-numerals-converter.htm. However, they both represent same number.
-function romanify(number) {
-    var romanNum = "";
-    var romans = [
+// Integers to Roman Numerals
+function integerToRoman(number) {
+    let romanNum = [];
+    let romans = [
         "M",
-        "IM",
         "CM",
         "D",
-        "XD",
         "CD",
         "C",
-        "IC",
         "XC",
         "L",
-        "IL",
         "XL",
         "X",
         "IX",
@@ -97,17 +90,18 @@ function romanify(number) {
         "IV",
         "I"
     ];
-    var numbers = [
-        1000, 999, 900, 500, 490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1
-    ];
+    let divisors = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
 
-    for (var i = 0; i < numbers.length; i++) {
-        while (number >= numbers[i]) {
-            number -= numbers[i];
-            romanNum += romans[i];
+    for (let i = 0; i < divisors.length; i++) {
+        let div = divisors[i];
+        if (number === 0) break;
+        let result = Math.floor(number / div);
+        number = number % div;
+        for (let j = 1; j <= result; j++) {
+            romanNum.push(romans[i]);
         }
     }
-    return romanNum;
+    return romanNum.join("");
 }
 
 //Romans to Integers

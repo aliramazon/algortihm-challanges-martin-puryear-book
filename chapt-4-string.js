@@ -73,7 +73,7 @@ const removerEvenLengthStrings = (words) => {
 };
 
 // Integers to Roman Numerals
-function integerToRoman(number) {
+const integerToRoman = (number) => {
     let romanNum = [];
     let romans = [
         "M",
@@ -102,48 +102,41 @@ function integerToRoman(number) {
         }
     }
     return romanNum.join("");
-}
+};
 
 //Romans to Integers
-function numberfy(romanStr) {
-    var number = 0;
-    var romans = [
-        "M",
-        "IM",
-        "CM",
-        "D",
-        "XD",
-        "CD",
-        "C",
-        "IC",
-        "XC",
-        "L",
-        "IL",
-        "XL",
-        "X",
-        "IX",
-        "V",
-        "IV",
-        "I"
-    ];
-    var numbers = [
-        1000, 999, 900, 500, 490, 400, 100, 99, 90, 50, 49, 40, 10, 9, 5, 4, 1
-    ];
-    for (var i = 0; i < romanStr.length; i++) {
-        var singleLetterPos = romans.indexOf(romanStr[i]);
-        var twoLetterRoman = romanStr.slice(i, i + 2); // Like XL, IX, CD
-        var twoLetterPos = romans.indexOf(twoLetterRoman); // It  gets the positions of them;
-        if (singleLetterPos !== -1) {
-            if (twoLetterPos !== -1) {
-                number += numbers[twoLetterPos];
-                i += 1;
-            } else {
-                number += numbers[singleLetterPos];
-            }
+const romanToInteger = (roman) => {
+    let romans = {
+        M: 1000,
+        CM: 900,
+        D: 500,
+        CD: 400,
+        C: 100,
+        XC: 90,
+        L: 50,
+        XL: 40,
+        X: 10,
+        IX: 9,
+        V: 5,
+        IV: 4,
+        I: 1
+    };
+    let number = romans[roman[roman.length - 1]];
+    if (roman.length === 1) {
+        return romans[roman];
+    }
+
+    for (let i = 0; i < roman.length - 1; i++) {
+        let current = roman[i];
+        let next = roman[i + 1];
+        if (romans[current] > romans[next]) {
+            number += romans[current];
+        } else {
+            number -= romans[current];
         }
     }
     return number;
-}
+};
 
 // is Parenthesis valid
 function isValidParentheses(str) {

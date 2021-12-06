@@ -138,9 +138,7 @@ const romanToInteger = (roman) => {
     return number;
 };
 
-// is Parenthesis valid
-// ab(!dc()) => valid, ()) => notValid,
-
+// is Parenthesis valid ? ab(!dc()) => valid, ()) => notValid,
 const isValidParenthesis = (str) => {
     let stack = [];
 
@@ -155,8 +153,8 @@ const isValidParenthesis = (str) => {
 
     return stack.length === 0;
 };
-// isValidBraces?
 
+// are braces valid?
 const isValidBraces = (str) => {
     let stack = [];
     let opening = new Set(["[", "{", "("]);
@@ -177,43 +175,39 @@ const isValidBraces = (str) => {
     return stack.length === 0;
 };
 
-console.log(isValidBraces("[[{()}]({[]})]"));
-console.log(isValidBraces("[[{(r)}q]s({s[]s})]"));
-console.log(isValidBraces("[[{()}]([]})]"));
-console.log(isValidBraces("[[{()}]a(a[a]})]"));
-console.log(isValidBraces("[[]"));
-console.log(isValidBraces("{]"));
-console.log(isValidBraces("]"));
-console.log(isValidBraces("["));
-// is Palindrome? /Strict version
+// is string palindrome?
+const isPalindrome = (str) => {
+    let mid = Math.floor(str.length / 2);
 
-function isStrictPalindrome(str) {
-    var reversedStr = "";
-
-    for (var i = 0; i < str.length; i++) {
-        reversedStr = str[i] + reversedStr;
-    }
-
-    return reversedStr === str;
-}
-
-// isSoftPalindrome?
-
-function isSoftPalindrome(str) {
-    str = str.split(" ").join("").toLowerCase();
-    var puncts = ["!", ",", "?", "."];
-    var cleanStr = "";
-    var reversedStr = "";
-
-    for (var i = 0; i < str.length; i++) {
-        var chr = str[i];
-        if (puncts.indexOf(chr) === -1) {
-            reversedStr = chr + reversedStr;
-            cleanStr += chr;
+    for (let i = 0; i < mid; i++) {
+        if (str[i] !== str[str.length - 1 - i]) {
+            return false;
         }
     }
-    return reversedStr === cleanStr;
-}
+    return true;
+};
+
+const isSoftPalindrome = (str) => {
+    let chars = new Set(["!", ",", "?", ".", " "]);
+    let start = 0;
+    let end = str.length - 1;
+
+    while (start <= end) {
+        if (!chars.has(str[start]) && !chars.has(str[end])) {
+            if (str[start].toLowerCase() !== str[end].toLowerCase()) {
+                return false;
+            } else {
+                start++, end--;
+            }
+        } else if (chars.has(str[start])) {
+            start++;
+        } else if (chars.has(str[end])) {
+            end--;
+        }
+    }
+
+    return true;
+};
 
 // ==== Is Alphabetical Order =========//
 

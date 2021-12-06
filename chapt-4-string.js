@@ -139,41 +139,52 @@ const romanToInteger = (roman) => {
 };
 
 // is Parenthesis valid
-function isValidParentheses(str) {
-    var stack = [];
-    for (var i = 0; i < str.length; i++) {
-        var chr = str[i];
+// ab(!dc()) => valid, ()) => notValid,
 
-        if (chr === "(") {
-            stack.push(chr);
-        } else if (chr === ")") {
-            var lastOpen = stack.pop();
-            if (lastOpen === undefined) return false;
+const isValidParenthesis = (str) => {
+    let stack = [];
+
+    for (let char of str) {
+        if (char === "(") {
+            stack.push(char);
+        } else if (char === ")") {
+            let popped = stack.pop();
+            if (popped !== "(") return false;
         }
     }
-    return stack.length === 0;
-}
 
+    return stack.length === 0;
+};
 // isValidBraces?
 
-function isValidBraces(str) {
-    var stack = [];
-    var pairs = { "(": ")", "[": "]", "{": "}" };
-    var closed = [")", "]", "}"];
+const isValidBraces = (str) => {
+    let stack = [];
+    let opening = new Set(["[", "{", "("]);
+    let closing = new Set(["]", "}", ")"]);
+    let pairs = { "(": ")", "[": "]", "{": "}" };
 
-    for (var i = 0; i < str.length; i++) {
-        var chr = str[i];
-
-        if (pairs[chr]) {
-            stack.push(chr);
-        } else if (closed.indexOf(chr) !== -1) {
-            var lastOpen = stack.pop();
-            if (pairs[lastOpen] !== chr) return false;
+    for (let char of str) {
+        if (opening.has(char)) {
+            stack.push(char);
+        } else if (closing.has(char)) {
+            let lastOpened = stack.pop();
+            if (pairs[lastOpened] !== char) {
+                return false;
+            }
         }
     }
-    return stack.length === 0;
-}
 
+    return stack.length === 0;
+};
+
+console.log(isValidBraces("[[{()}]({[]})]"));
+console.log(isValidBraces("[[{(r)}q]s({s[]s})]"));
+console.log(isValidBraces("[[{()}]([]})]"));
+console.log(isValidBraces("[[{()}]a(a[a]})]"));
+console.log(isValidBraces("[[]"));
+console.log(isValidBraces("{]"));
+console.log(isValidBraces("]"));
+console.log(isValidBraces("["));
 // is Palindrome? /Strict version
 
 function isStrictPalindrome(str) {

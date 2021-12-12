@@ -209,45 +209,37 @@ const isSoftPalindrome = (str) => {
     return true;
 };
 
-// ==== Is Alphabetical Order =========//
+// Is Vowels Ordered
+const isVowelsOrdered = (str) => {
+    const dict = { a: 1, e: 2, i: 3, o: 4, u: 5 };
+    let vowels = [];
 
-/* Is Vowels Ordered */
-function isVowelsOrdered(str) {
-    var vowels = "aeiou";
-    var vowelsPos = [];
-
-    for (var i = 0; i < str.length; i++) {
-        var pos = vowels.indexOf(str[i]);
-
-        if (pos !== -1) {
-            vowelsPos.push(pos);
-        }
+    for (let char of str) {
+        if (dict[char]) vowels.push(char);
     }
-    // return vowelsPos === vowelsPos.sort(); This could do the job between 223-228.
-    for (var i = 0; i < vowelsPos.length - 1; i++) {
-        if (vowelsPos[i] > vowelsPos[i + 1]) {
+
+    for (let i = 0; i < vowels.length - 1; i++) {
+        let prev = vowels[i];
+        let next = vowels[i + 1];
+
+        if (dict[prev] > dict[next]) return false;
+    }
+    return true;
+};
+
+// Is Letters Alphabetical Ordered
+const isAlphabeticalOrdered = (str) => {
+    for (let i = 0; i < str.length - 1; i++) {
+        let prev = str[i];
+        let next = str[i + 1];
+        if (prev.charCodeAt() > next.charCodeAt()) {
             return false;
         }
     }
     return true;
-}
+};
 
-/* Is Letters Alphabetical Ordered */
-
-function isLettersOrdered(str) {
-    var abc = "abcdefghijklmnopqrstuvwxyz";
-    str = str.toLowerCase();
-
-    for (var i = 0; i < str.length - 1; i++) {
-        if (abc.indexOf(str[i]) > abc.indexOf(str[i + 1])) {
-            return false;
-        }
-    }
-    return true;
-}
-
-// First Letter goes to the end //
-
+// First Letter goes to the end
 function wierdGreeting(str) {
     var veryFirstLetter = str[0];
     var firstLetterRemoved = str.split(str[0]).join("");

@@ -251,48 +251,45 @@ function wierdGreeting(str) {
     return firstLetterRemoved + " to the " + veryFirstLetter;
 }
 
+// D Gets Jiggy
+const dGetsJiggy = (name) => {
+    if (name.length === 1) return "Name should contain at least 2 letters";
+    return `${name[1].toUpperCase()}${name.slice(2)} to the ${name[0]}!`;
+};
+
 // Common Suffix.
-// We need to helper function, one for getting the longestWord
-//another for checking if given suffix exists in each word of array.
-//Several ways to solve this exists, however, I wanted to split into helpers to make sure
-// it is understandable and nested loops avoided;
+const commonSuffix = (words) => {
+    let hash = { "": 1 };
 
-function getCommonSuffix(words) {
-    var longestWord = getShortestWord(words);
-    var commonSuffix = null;
-    for (var i = longestWord.length - 1; i >= 0; i--) {
-        var suffix = longestWord.slice(i);
-        if (isLastSuffixSame(words, suffix)) {
-            commonSuffix = suffix;
-        } else {
-            return commonSuffix;
+    for (let word of words) {
+        for (let i = word.length - 1; i >= 0; i--) {
+            let suffix = word.slice(i);
+            if (hash[suffix]) {
+                hash[suffix]++;
+            } else {
+                hash[suffix] = 1;
+            }
         }
     }
-    return commonSuffix;
-}
-function isLastSuffixSame(words, suffix) {
-    for (var i = 0; i < words.length; i++) {
-        var chars = words[i].split(suffix);
-        if (words[i].length === 0 || chars[chars.length - 1] !== "") {
-            return false;
+
+    let largestSuffix = "";
+
+    for (let suffix in hash) {
+        if (hash[suffix] === words.length) {
+            if (hash[largestSuffix] < hash[suffix]) {
+                largestSuffix = suffix;
+            } else if (
+                hash[largestSuffix] === hash[suffix] &&
+                largestSuffix.length < suffix.length
+            ) {
+                largestSuffix = suffix;
+            }
         }
     }
-    return true;
-}
-
-function getShortestWord(words) {
-    var shortest = words[0];
-
-    for (var i = 0; i < words.length; i++) {
-        if (shortest.length > words[i].length) {
-            shortest = words[i];
-        }
-    }
-    return shortest;
-}
+    return largestSuffix;
+};
 
 // Book Index
-
 function bookIndex(pages) {
     var indexes = [];
 

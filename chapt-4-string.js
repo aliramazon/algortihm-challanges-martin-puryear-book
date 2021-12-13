@@ -290,85 +290,46 @@ const commonSuffix = (words) => {
 };
 
 // Book Index
-function bookIndex(pages) {
-    var indexes = [];
+const bookIndex = (indices) => {
+    let groupedIndices = [];
+    let idx = 0;
 
-    for (var i = 0; i < pages.length; i++) {
-        var endIdx = getEndIdx(pages, i);
-        if (i === endIdx) {
-            var range = pages[endIdx];
-        } else {
-            var range = pages[i] + "-" + pages[endIdx];
+    while (idx < indices.length) {
+        let start = idx;
+        while (indices[idx] === indices[idx + 1] - 1) {
+            idx++;
         }
-        indexes.push(range);
-        i = endIdx;
-    }
-    return indexes.join(",");
-}
-
-function getEndIdx(pages, startIdx) {
-    var startEle = pages[startIdx];
-    var endIdx = startIdx;
-
-    for (var i = startIdx; i < pages.length; i++) {
-        if (startEle === pages[i + 1] - 1) {
-            endIdx = i + 1;
-            startEle = pages[endIdx];
+        if (start !== idx) {
+            groupedIndices.push(`${indices[start]}-${indices[idx]}`);
         } else {
-            return endIdx;
+            groupedIndices.push(indices[idx]);
         }
+        idx++;
     }
-    return endIdx;
-}
+    return groupedIndices.join(",");
+};
 
 // Drop the Mike
-
 function dropTheMike(phrase) {
-    phrase = phrase.split(" ");
-    if (phrase.indexOf("Mike") !== -1) {
-        return "stunned silence";
-    }
-    var newPhrase = [];
+    if (phrase.indexOf("Mike") !== -1) return "stunned silence";
+    let words = phrase.slice(1, phrase.length - 1).split(" ");
 
-    for (var i = 0; i < phrase.length; i++) {
-        var word = phrase[i];
-
-        if (word !== "") {
-            var capitalizedWord =
-                word.slice(0, 1).toUpperCase() + word.slice(1);
-            newPhrase.push(capitalizedWord);
-        }
-    }
-    return newPhrase.join(" ");
+    return words
+        .map((word) => `${word[0].toUpperCase()}${word.slice(1)}`)
+        .join(" ");
 }
 
 // Coin Change with Array
+const generateChange = (cents) => {
+    let counter = { 100: 0, 25: 0, 10: 0, 5: 0, 1: 0 };
+    let amounts = [100, 25, 10, 5, 1];
 
-function generateChange(cents) {
-    var counter = { one: 0, q: 0, d: 0, n: 0, p: 0 };
-
-    while (cents >= 100) {
-        cents -= 100;
-        counter["one"] += 1;
-    }
-    while (cents >= 25) {
-        cents -= 25;
-        counter["q"] += 1;
-    }
-    while (cents >= 10) {
-        cents -= 10;
-        counter["d"] += 1;
-    }
-    while (cents >= 5) {
-        cents -= 5;
-        counter["n"] += 1;
-    }
-    while (cents >= 1) {
-        cents -= 1;
-        counter["p"] += 1;
+    for (let amount of amounts) {
+        counter[amount] = Math.floor(cents / amount);
+        cents %= amount;
     }
     return counter;
-}
+};
 
 // Max, Min, Average with Object;
 

@@ -331,29 +331,25 @@ const generateChange = (cents) => {
     return counter;
 };
 
-// Max, Min, Average with Object;
+// Find min, max and average of array of numbers
+const minMaxAverage = (numbers) => {
+    let obj = { min: numbers[0], max: numbers[0], average: null };
+    let sum = 0;
 
-function minMaxAverage(numbers) {
-    var obj = { min: numbers[0], max: numbers[0] };
-    var sum = 0;
-    var counter = 0;
-    for (var i = 0; i < numbers.length; i++) {
-        var num = numbers[i];
-
-        if (obj["min"] > num) {
-            obj["min"] = num;
+    for (let number of numbers) {
+        if (obj.min > number) {
+            obj.min = number;
         }
 
-        if (obj["max"] < num) {
-            obj["max"] = num;
+        if (obj.max < number) {
+            obj.max = number;
         }
-        sum += num;
-        counter += 1;
+        sum += number;
     }
-    obj["average"] = sum / counter;
+    obj.average = sum / numbers.length;
 
     return obj;
-}
+};
 
 // Zip Arrays into Map
 

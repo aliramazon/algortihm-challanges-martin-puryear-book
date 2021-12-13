@@ -362,7 +362,6 @@ const zipArraysIntoMap = (arr1, arr2) => {
 };
 
 // Invert Hash
-
 const invertHash = (obj) => {
     let invertedObj = {};
 
@@ -371,48 +370,37 @@ const invertHash = (obj) => {
     }
     return invertedObj;
 };
-console.log(invertHash({ a: 1, b: 2, c: 3 }));
-
 // Number of Values
+const objValueCount = (obj) => {
+    let counter = 0;
 
-function objValueCount(obj) {
-    counter = 0;
-
-    for (var key in obj) {
+    for (let key in obj) {
         counter += 1;
     }
     return counter;
-}
+};
 
-//String.concat;
-//We do not know the quantity of the string we should concat.
-// So we can use built-in *arguments to iterate through unknown quantity.
+// String.concat;
 
-function stringConcat() {
-    var newStr = "";
-    for (var i = 0; i < arguments.length; i++) {
-        newStr += arguments[i];
-    }
-    return newStr;
-}
+const stringConcat = (...strings) => {
+    return strings.join("");
+};
 
 // String slice
-
-function stringSlice(str, start, end) {
-    if (end === undefined) {
+const stringSlice = (str, start, end) => {
+    if (end === undefined || end > str.length) {
         end = str.length;
     }
-    var slicedStr = "";
+    if (start > str.length - 1) return "";
+    let sliced = [];
 
-    for (var i = start; i < end; i++) {
-        slicedStr += str[i];
+    for (let i = start; i < end; i++) {
+        sliced.push(str[i]);
     }
-
-    return slicedStr;
-}
+    return sliced.join("");
+};
 
 //String Trim
-
 function stringTrim(str) {
     var trimmedStr = [];
     var words = str.split(" ");
@@ -427,7 +415,6 @@ function stringTrim(str) {
 }
 
 //String split without limit Property;
-
 function stringSplit(str, seperator) {
     var splitStr = [];
     var splitHolder = "";
@@ -454,12 +441,11 @@ function stringSplit(str, seperator) {
 }
 
 // String Seartch
-
-function stringSearch(str, val) {
+const stringSearch = (str, val) => {
     for (var i = 0; i < str.length; i++) {
         if (str[i] === val) {
             return i;
         }
     }
     return -1;
-}
+};

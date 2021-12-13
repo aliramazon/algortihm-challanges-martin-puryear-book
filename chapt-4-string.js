@@ -352,16 +352,14 @@ const minMaxAverage = (numbers) => {
 };
 
 // Zip Arrays into Map
+const zipArraysIntoMap = (arr1, arr2) => {
+    let map = new Map();
 
-function mapify(arr, arr1) {
-    var zipped = {};
-
-    for (var i = 0; i < arr.length; i++) {
-        var ele = arr[i];
-        zipped[ele] = arr1[i];
-    }
-    return zipped;
-}
+    arr1.forEach((ele, idx) => {
+        map.set(ele, arr2[idx]);
+    });
+    return map;
+};
 
 // Invert Hash
 

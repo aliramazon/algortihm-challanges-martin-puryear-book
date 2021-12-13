@@ -363,14 +363,15 @@ const zipArraysIntoMap = (arr1, arr2) => {
 
 // Invert Hash
 
-function invertHash(obj) {
-    var inverted = {};
+const invertHash = (obj) => {
+    let invertedObj = {};
 
-    for (var key in obj) {
-        inverted[obj[key]] = key;
+    for (let key in obj) {
+        invertedObj[obj[key]] = key;
     }
-    return inverted;
-}
+    return invertedObj;
+};
+console.log(invertHash({ a: 1, b: 2, c: 3 }));
 
 // Number of Values
 

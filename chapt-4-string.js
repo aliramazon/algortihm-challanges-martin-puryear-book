@@ -402,16 +402,17 @@ const stringSlice = (str, start, end) => {
 
 //String Trim
 function stringTrim(str) {
-    var trimmedStr = [];
-    var words = str.split(" ");
+    let start = 0;
+    let end = str.length - 1;
 
-    for (var i = 0; i < words.length; i++) {
-        var char = words[i];
-        if (char !== "" && char !== "\n" && char !== "\t") {
-            trimmedStr.push(words[i]);
-        }
+    while (str[start] === " ") {
+        start++;
     }
-    return trimmedStr.join(" ");
+    while (str[end] === " ") {
+        end--;
+    }
+
+    return str.slice(start, end + 1);
 }
 
 //String split without limit Property;

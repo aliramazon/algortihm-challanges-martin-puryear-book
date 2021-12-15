@@ -401,7 +401,7 @@ const stringSlice = (str, start, end) => {
 };
 
 //String Trim
-function stringTrim(str) {
+const stringTrim = (str) => {
     let start = 0;
     let end = str.length - 1;
 
@@ -413,39 +413,71 @@ function stringTrim(str) {
     }
 
     return str.slice(start, end + 1);
-}
+};
 
 //String split without limit Property;
-function stringSplit(str, seperator) {
-    var splitStr = [];
-    var splitHolder = "";
+const stringSplit = (str, seperator) => {
+    let chars = [];
+    let temp = [];
+    let matches = [];
+    let i = 0;
+    let j = 0;
 
-    for (var i = 0; i < str.length; i++) {
-        if (seperator === "") {
-            splitStr.push(str[i]);
-        } else {
-            if (str[i] === seperator) {
-                splitStr.push(splitHolder);
-                splitHolder = "";
+    if (seperator === "") {
+        for (let char of str) {
+            chars.push(char);
+        }
+    } else if (seperator === undefined) {
+        chars = [str];
+    } else {
+        while (i < str.length) {
+            if (str[i] !== seperator[0]) {
+                temp.push(str[i]);
+                i++;
             } else {
-                if (i !== str.length - 1) {
-                    splitHolder += str[i];
-                } else {
-                    splitHolder += str[i];
-                    splitStr.push(splitHolder);
+                while (seperator[j] === str[i + j] && j < seperator.length) {
+                    matches.push(seperator[j]);
+                    j++;
                 }
+                if (j === seperator.length) {
+                    matches = [];
+                    if (temp.length) {
+                        chars.push(temp.join(""), "");
+                    } else {
+                        chars.push("");
+                    }
+                    temp = [];
+                } else {
+                    temp = [...temp, ...matches];
+                    matches = [];
+                }
+                i += j;
+                j = 0;
             }
         }
     }
+    chars.push([...temp, ...matches].join(""));
 
-    return splitStr;
-}
+    return chars;
+};
 
 // String Seartch
 const stringSearch = (str, val) => {
-    for (var i = 0; i < str.length; i++) {
-        if (str[i] === val) {
-            return i;
+    let j = 0;
+    for (let i = 0; i < str.length; i++) {
+        if (str[i] === val[0]) {
+            while (str[i + j] === val[j] && j < val.length) {
+                console.log(j);
+                j++;
+            }
+
+            if (j === val.length) {
+                return true;
+            } else {
+                j = 0;
+            }
+        } else {
+            continue;
         }
     }
     return -1;

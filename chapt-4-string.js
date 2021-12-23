@@ -467,7 +467,6 @@ const stringSearch = (str, val) => {
     for (let i = 0; i < str.length; i++) {
         if (str[i] === val[0]) {
             while (str[i + j] === val[j] && j < val.length) {
-                console.log(j);
                 j++;
             }
 
@@ -476,8 +475,6 @@ const stringSearch = (str, val) => {
             } else {
                 j = 0;
             }
-        } else {
-            continue;
         }
     }
     return -1;

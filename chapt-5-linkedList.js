@@ -93,4 +93,19 @@ class SinglyLinkedList {
         }
         return true;
     }
+
+    reverse() {
+        let current = this.head;
+        let prev = null;
+        let nextNode;
+
+        while (current) {
+            nextNode = current.next;
+            current.next = prev;
+            prev = current;
+            current = nextNode;
+        }
+        [this.head, this.tail] = [this.tail, this.head];
+        return this;
+    }
 }

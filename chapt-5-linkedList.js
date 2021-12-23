@@ -54,6 +54,7 @@ class SinglyLinkedList {
             current.next = null;
             this.tail = current;
         }
+        this.length--;
 
         return popped;
     }
@@ -70,5 +71,26 @@ class SinglyLinkedList {
 
         this.length--;
         return shifted;
+    }
+
+    remove(value) {
+        let current = this.head;
+        if (!current) return false;
+
+        if (current.value === value) {
+            this.shift();
+            return true;
+        } else {
+            while (current.next && current.next.value !== value) {
+                current = current.next;
+            }
+            if (!current.next) return false;
+            current.next = current.next.next;
+            if (!current.next) {
+                this.tail = current;
+            }
+            this.length--;
+        }
+        return true;
     }
 }

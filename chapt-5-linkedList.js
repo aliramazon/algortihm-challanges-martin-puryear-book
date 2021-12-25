@@ -108,4 +108,17 @@ class SinglyLinkedList {
         [this.head, this.tail] = [this.tail, this.head];
         return this;
     }
+
+    search(value) {
+        let current = this.head;
+        if (!current) return false;
+
+        while (current) {
+            if (current.value === value) {
+                return true;
+            }
+            current = current.next;
+        }
+        return false;
+    }
 }

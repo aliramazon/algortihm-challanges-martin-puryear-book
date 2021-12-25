@@ -154,14 +154,20 @@ class SinglyLinkedList {
         }
         return max;
     }
-}
 
-let linked = new SinglyLinkedList();
-linked.push(1);
-linked.push(4);
-linked.push(9);
-linked.push(89);
-linked.push(6);
-linked.push(3);
-console.log(linked.min());
-console.log(linked.max());
+    sum() {
+        let current = this.head;
+        if (!current) return 0;
+        let sum = 0;
+
+        while (current) {
+            sum += current.value;
+            current = current.next;
+        }
+        return sum;
+    }
+
+    average() {
+        return this.sum() / this.#length;
+    }
+}

@@ -126,4 +126,42 @@ class SinglyLinkedList {
         }
         return false;
     }
+
+    min() {
+        let current = this.head;
+        if (!current) return null;
+        let min = this.head.value;
+
+        while (current) {
+            if (min > current.value) {
+                min = current.value;
+            }
+            current = current.next;
+        }
+        return min;
+    }
+
+    max() {
+        let current = this.head;
+        if (!current) return null;
+        let max = this.head.value;
+
+        while (current) {
+            if (max < current.value) {
+                max = current.value;
+            }
+            current = current.next;
+        }
+        return max;
+    }
 }
+
+let linked = new SinglyLinkedList();
+linked.push(1);
+linked.push(4);
+linked.push(9);
+linked.push(89);
+linked.push(6);
+linked.push(3);
+console.log(linked.min());
+console.log(linked.max());

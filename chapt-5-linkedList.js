@@ -170,4 +170,31 @@ class SinglyLinkedList {
     average() {
         return this.sum() / this.#length;
     }
+
+    back() {
+        return this.tail.value;
+    }
+
+    removeBack() {
+        this.pop();
+        return this;
+    }
+
+    addBack(value) {
+        this.push(value);
+    }
+
+    moveMinToFront() {
+        const min = this.min();
+        this.remove(min);
+        this.unshift(min);
+        return this;
+    }
+
+    moveMaxToBack() {
+        const max = this.max();
+        this.remove(max);
+        this.push(max);
+        return this;
+    }
 }
